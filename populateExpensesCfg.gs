@@ -25,10 +25,15 @@ function populateExpensesCfg() {
   while (currentRow && currentRow[NAME_COLUMN] != "") {
     const category = currentRow[CATEGORY_COLUMN];
     if (category) {
+      var found = false;
       for (var j = 0; j < newCfg.length; j++) {
         if (newCfg[j][0]['name'] == category) {
           newCfg[j][1].push(currentRow[NAME_COLUMN]);
+          found = true;
         }
+      }
+      if (!found) {
+        newCfg.push([{"name":category,"sign":-1},[currentRow[NAME_COLUMN]]]);
       }
     }
     currentRowNumber++;
